@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Each AI Flow Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#3851FF",
     "light": "#07C983",
     "dark": "#0D9373",
     "anchors": {
@@ -15,77 +15,100 @@
       "to": "#07C983"
     }
   },
+  "openapi": "/doc.json",
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "https://discord.gg/yzZD4ZxBPt"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Console",
+    "url": "https://console.eachlabs.ai"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
+  "tabs": [],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Quickstart",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "welcome"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "AI Flows",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "flow/getting-started",
+        "flow/create",
+        "flow/how-does-input-and-output-work",
+        "flow/integrations",
+        "flow/ai-models",
+        "flow/api-reference",
+        "flow/billing"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "AI Workflows API",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/flows/create-ai-workflow",
+        "api-reference/flows/get-ai-workflow",
+        "api-reference/flows/update-ai-workflow",
+        "api-reference/flows/delete-ai-workflow",
+        "api-reference/flows/list-ai-workflows",
+        "api-reference/flows/trigger-ai-workflow",
+        "api-reference/flows/bulk-run"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "AI Workflow Execution API",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/execution/cancel-execution",
+        "api-reference/execution/get-flow-execution",
+        "api-reference/execution/get-bulk-execution"
+      ]
+    },
+    {
+      "group": "AI Workflow Operations",
+      "pages": [
+        "api-reference/flows/import-ai-workflow",
+        "api-reference/flows/export-ai-workflow",
+        "api-reference/flows/update-settings-ai-workflow"
+      ]
+    },
+    {
+      "group": "AI Workflow Templates API",
+      "pages": [
+        "api-reference/templates/clone-ai-workflow"
+      ]
+    },
+    {
+      "group": "Model Deployment",
+      "pages": [
+        "deployment/package",
+        "deployment/deploy",
+        "deployment/bridge",
+        "deployment/autoscaling"
+      ]
+    },
+    {
+      "group": "Inference API",
+      "pages": [
+        "connect/how-to-call-model"
       ]
     }
   ],
+  "api": {
+    "baseUrl": "https://flows.eachlabs.ai",
+    "auth": {
+      "method": "key",
+      "name": "X-API-KEY"
+    },
+    "playground": {
+      "mode": "show"
+    }
+  },
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "twitter": "https://twitter.com/eachlabs",
+    "github": "https://github.com/eachlabs",
+    "linkedin": "https://www.linkedin.com/company/eachlabs"
   }
 }

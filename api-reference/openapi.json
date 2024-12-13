@@ -1,195 +1,1587 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Each AI Workflows",
+      "description": "Each AI Workflows API Documentation",
+      "termsOfService": "https://eachlabs.ai/terms-of-service",
+      "contact": {
+        "name": "Developers",
+        "email": "devs@eachlabs.ai"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://en.wikipedia.org/wiki/MIT_License"
+      },
+      "version": "1.0.0"
     },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+    "servers": [
+      {
+        "url": "https://flows.eachlabs.ai"
+      }
+    ],
+    "paths": {
+      "/api/v1/": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "ListWorkflowsResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ListWorkflowsResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
+          "tags": [
+            "flows"
+          ],
+          "summary": "List AI Workflows",
+          "description": " Get a list for AI Workflows"
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Create Flow Response JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateFlowResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "tags": [
+            "flows"
+          ],
+          "summary": "Create AI Workflow",
+          "description": " Create a new AI Workflow",
+          "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/CreateFlowReq"
                 }
               }
+            },
+            "required": true
+          }
+        }
+      },
+      "/api/v1/{workflowID}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Flow JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Flow"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "flows"
+          ],
+          "summary": "Get AI Workflow",
+          "description": " Get an existing AI Workflow",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ]
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Update Flow Request JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateFlowReq"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "flows"
+          ],
+          "summary": "Update AI Workflow",
+          "description": " Update an existing AI Workflow",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateFlowReq"
+                }
+              }
+            },
+            "required": true
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "flows"
+          ],
+          "summary": "Delete AI Workflow",
+          "description": " Delete an existing AI Workflow",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/{workflowID}/clone": {
+        "post": {
+          "responses": {
+            "200": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "templates"
+          ],
+          "summary": "Clone AI Workflow",
+          "description": " Clone an existing AI Workflow",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/{workflowID}/executions/{execID}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Execution JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Execution"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "execution"
+          ],
+          "summary": "Get Flow Execution",
+          "description": " ",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/{workflowID}/executions/{execID}/cancel": {
+        "post": {
+          "responses": {
+            "200": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "execution"
+          ],
+          "summary": "Cancel Execution",
+          "description": " Cancel a workflow execution",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            },
+            {
+              "name": "execID",
+              "in": "path",
+              "description": "Execution ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Execution ID"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/{workflowID}/trigger": {
+        "post": {
+          "responses": {
+            "200": {
+              "description": "TriggerFlowResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TriggerFlowResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "ErrorResponse JSON",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "flow"
+          ],
+          "summary": "Trigger AI Workflow",
+          "description": " Trigger a workflow",
+          "parameters": [
+            {
+              "name": "workflowID",
+              "in": "path",
+              "description": "Workflow ID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "string",
+                "description": "Workflow ID"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TriggerFlowReq"
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "icon": {
+              "type": "string"
+            },
+            "thumbnail": {
+              "type": "string"
+            }
+          }
+        },
+        "CreateFlowReq": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "example": "XXXX-XXXX-XXXX-XXXX"
+            },
+            "description": {
+              "type": "string"
+            },
+            "thumbnail_url": {
+              "type": "string"
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Input"
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Output"
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Step"
+              }
+            },
+            "nodes_json": {
+              "type": "string"
+            },
+            "edges_json": {
+              "type": "string"
+            }
+          }
+        },
+        "CreateFlowResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "workflow_id": {
+              "type": "string"
+            }
+          }
+        },
+        "Edge": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "Execution": {
+          "type": "object",
+          "properties": {
+            "flow_id": {
+              "type": "string"
+            },
+            "flow_name": {
+              "type": "string"
+            },
+            "organization_id": {
+              "type": "string"
+            },
+            "api_key": {
+              "type": "string"
+            },
+            "execution_id": {
+              "type": "string"
+            },
+            "source_ip_address": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "step_results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "step_id": {
+                    "type": "string"
+                  },
+                  "step_name": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "started_at": {
+                    "type": "string"
+                  },
+                  "ended_at": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "output": {
+                    "type": "string"
+                  },
+                  "input": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "status": {
+              "type": "string"
+            },
+            "output": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "started_at": {
+              "type": "string"
+            },
+            "ended_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "deleted_at": {
+              "type": "string"
+            }
+          }
+        },
+        "Flow": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "organization_id": {
+              "type": "string"
+            },
+            "user_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "category": {
+              "type": "object",
+              "$ref": "#/components/schemas/Category"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "thumbnail_url": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "$ref": "#/components/schemas/FlowStatus"
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "default_value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "$ref": "#/components/schemas/StepType"
+                  },
+                  "model_slug": {
+                    "type": "string"
+                  },
+                  "model_version": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "target": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "nodes_json": {
+              "type": "string"
+            },
+            "edges_json": {
+              "type": "string"
+            },
+            "premium": {
+              "type": "boolean"
+            },
+            "trigger_count": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "integer"
+            },
+            "last_updated_by": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          }
+        },
+        "FlowStatus": {
+          "type": "string"
+        },
+        "GetExecutionsResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "total": {
+              "type": "integer"
+            },
+            "executions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Execution"
+              }
+            }
+          }
+        },
+        "Input": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "default_value": {
+              "type": "string"
+            }
+          }
+        },
+        "ListWorkflowsResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "total": {
+              "type": "integer"
+            },
+            "workflows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "workspace_id": {
+                    "type": "string"
+                  },
+                  "organization_id": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Category"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "thumbnail_url": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "$ref": "#/components/schemas/FlowStatus"
+                  },
+                  "inputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "default_value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "$ref": "#/components/schemas/StepType"
+                        },
+                        "model_slug": {
+                          "type": "string"
+                        },
+                        "model_version": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "object"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        },
+                        "target": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "nodes_json": {
+                    "type": "string"
+                  },
+                  "edges_json": {
+                    "type": "string"
+                  },
+                  "premium": {
+                    "type": "boolean"
+                  },
+                  "trigger_count": {
+                    "type": "integer"
+                  },
+                  "popularity": {
+                    "type": "integer"
+                  },
+                  "last_updated_by": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Output": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "Parameter": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "Step": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "$ref": "#/components/schemas/StepType"
+            },
+            "model_slug": {
+              "type": "string"
+            },
+            "model_version": {
+              "type": "string"
+            },
+            "params": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "StepResult": {
+          "type": "object",
+          "properties": {
+            "step_id": {
+              "type": "string"
+            },
+            "step_name": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "started_at": {
+              "type": "string"
+            },
+            "ended_at": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "output": {
+              "type": "string"
+            },
+            "input": {
+              "type": "string"
+            }
+          }
+        },
+        "StepType": {
+          "type": "string"
+        },
+        "TriggerFlowReq": {
+          "type": "object",
+          "properties": {
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "object"
+                }
+              }
+            },
+            "webhook_url": {
+              "type": "string"
+            }
+          }
+        },
+        "TriggerFlowResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "trigger_id": {
+              "type": "string"
+            }
+          }
+        },
+        "UpdateFlowReq": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "thumbnail_url": {
+              "type": "string"
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Input"
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Output"
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Step"
+              }
+            },
+            "nodes_json": {
+              "type": "string"
+            },
+            "edges_json": {
+              "type": "string"
+            }
+          }
+        },
+        "response.ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "response.Flow": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "organization_id": {
+              "type": "string"
+            },
+            "user_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "category": {
+              "type": "object",
+              "$ref": "#/components/schemas/Category"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "thumbnail_url": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "$ref": "#/components/schemas/FlowStatus"
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "default_value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "$ref": "#/components/schemas/StepType"
+                  },
+                  "model_slug": {
+                    "type": "string"
+                  },
+                  "model_version": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "target": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "nodes_json": {
+              "type": "string"
+            },
+            "edges_json": {
+              "type": "string"
+            },
+            "premium": {
+              "type": "boolean"
+            },
+            "trigger_count": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "integer"
+            },
+            "last_updated_by": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          }
+        },
+        "response.ListWorkflowsResponse": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "total": {
+              "type": "integer"
+            },
+            "workflows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "workspace_id": {
+                    "type": "string"
+                  },
+                  "organization_id": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Category"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "thumbnail_url": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "$ref": "#/components/schemas/FlowStatus"
+                  },
+                  "inputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "default_value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "outputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "$ref": "#/components/schemas/StepType"
+                        },
+                        "model_slug": {
+                          "type": "string"
+                        },
+                        "model_version": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "object"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        },
+                        "target": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "nodes_json": {
+                    "type": "string"
+                  },
+                  "edges_json": {
+                    "type": "string"
+                  },
+                  "premium": {
+                    "type": "boolean"
+                  },
+                  "trigger_count": {
+                    "type": "integer"
+                  },
+                  "popularity": {
+                    "type": "integer"
+                  },
+                  "last_updated_by": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "response.UpdateFlowReq": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "thumbnail_url": {
+              "type": "string"
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Input"
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Output"
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Step"
+              }
+            },
+            "nodes_json": {
+              "type": "string"
+            },
+            "edges_json": {
+              "type": "string"
             }
           }
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
+    "security": [
+      {
+        "X-API-Key": [
+          "read",
+          "write"
         ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
       }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
-    }
+    ]
   }
-}

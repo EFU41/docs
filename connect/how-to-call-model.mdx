@@ -1,0 +1,226 @@
+---
+title: 'How to call a single model'
+description: 'Run deployed models with just one line of code.'
+---
+
+With Client SDKs you can call custom or public AI model with just one line of code!
+
+### Prerequisite
+- Select a model from **Model Yard**
+- Create an API Key
+
+You can use three ways to call a model on Each
+
+<CardGroup cols={2}>
+  <Card title="Client SDK" href="#client-sdk" icon="square-1">
+    Run with just a single line. 
+    ```each.run()```
+  </Card>
+ 
+  <Card title="Console" href="#console" icon="square-3">
+    Run from UI. Easy and effective for testing!
+  </Card>
+</CardGroup>
+
+## Client SDK
+
+With Client SDK you need to initialize our SDK in your langauage and then you may able to use custom methods and calls to Each backend servers.
+
+### Initialize SDK
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow@latest'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY || 'YOUR_API_KEY'
+});
+```
+
+```python python
+# We will launch our python client SDK soon.
+import requests
+
+# Make sure that you set EACH_API_KEY environment variable 
+# export EACH_API_KEY=<YOUR API KEY>
+
+```
+
+```go golang
+import (
+    each "github.com/eachlabs/eachgo"
+)
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+}
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+### Run Inference 
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow'
+import Each from '@eachlabs/aiflow';
+const each = new Each({
+    auth: process.env.EACH_API_KEY || 'YOUR_API_KEY'
+});
+const out = await each.predictions.run({
+  model: "meta-llama-3-8b-instruct",
+  version: "0.0.1",
+  input: {
+    "top_p": 0.9,
+    "prompt": "Write a paragraph about Turkish tea",
+    "max_tokens": 512,
+    "min_tokens": 0,
+    "temperature": 0.6,
+    "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+    "presence_penalty": 0,
+    "frequency_penalty": 0
+  },
+});
+console.log(out)
+```
+
+```python python
+import requests
+response = requests.post(
+    "https://api.eachlabs.ai/v1/prediction/run",
+    headers={
+        "X-API-KEY": "YOUR_API_KEY",
+    },
+    json={
+        "model": "meta-llama-3-8b-instruct",
+        "version": "0.0.1",
+        "input": {
+            "top_p": 0.9,
+            "prompt": "Write a paragraph about Turkish tea",
+            "max_tokens": 512,
+            "min_tokens": 0,
+            "temperature": 0.6,
+            "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "presence_penalty": 0,
+            "frequency_penalty": 0
+        }
+    },
+)
+out = response.json()
+print(out)
+```
+
+```go golang
+import "github.com/eachlabs/aiflow"
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+
+    // You can use &magicpoint.Input{} to pass your input
+    out, err := client.Run("meta-llama-3-8b-instruct", &Each.Input{
+        "top_p": 0.9,
+        "prompt": "Write a paragraph about Turkish tea",
+        "max_tokens": 512,
+        "min_tokens": 0,
+        "temperature": 0.6,
+        "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+        "presence_penalty": 0,
+        "frequency_penalty": 0
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(out)
+}
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+### Fine-tune models with your own data
+You can improve open-source models with your own data to create new models that are better suited to specific tasks.
+
+Image models like SDXL can generate images of a particular person, object, or style.
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY || 'YOUR_API_KEY'
+});
+
+const training = each.training.create("sdxl-training:13853038482995843", {
+    input: {
+        "input_images": "https://example.url/pictures.zip
+    },
+    destination: "eftal/sdxl-finetuned-with-pictures"
+})
+
+console.log(training)
+
+// When Traning completed you can call your custom inference api 
+const output = each.predictions.run("eftal/sdxl-finetuned-with-pictures", {
+    input: {
+        width: 512,
+        height: 512,
+        prompt: "a spaceship into the ocean, dramatic lights, hd",
+        scheduler: "K_EULER",
+        num_outputs: 1,
+        guidance_scale: 7.5,
+        num_inference_steps: 50
+    },
+})
+
+console.log(output)
+```
+
+```python python
+// coming soon!
+```
+
+```go golang
+// coming soon!
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+
+That's it!
+
+
+## Console
+The easiest way! You can call public or custom model via [console](https://console.eachlabs.ai). 
+Select your model and you can use **▶ Demo** tab on the page.
+

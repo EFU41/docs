@@ -1,0 +1,64 @@
+---
+title: Develop on local, run on cloud!
+description: Create a bridge your between local and cloud. With single line of code.
+---
+
+AI and ML models on local machine is like a hell. We know that and we motivated to create a bridge between local and cloud. 
+
+<Info>
+  **Prerequisite** You should have `magicpoint.yaml` to use bridge!
+</Info>
+
+Let's continue with an example. If you have an magicpoint application like that;
+```python example_app.py
+from magicpoint import Magicpoint, Request, Response
+from diffusers import StableDiffusionPipeline 
+import torch
+import os
+
+app = Magicpoint("MyCoolApp 😎")
+
+@app.init
+def init():
+    model = StableDiffusionPipeline.from_pretrained(
+        "runwayml/stable-diffusion-v1-5",
+        revision="fp16",
+        torch_dtype=torch.float16,
+        cache_dir="./models",
+        # Add your own auth token from Huggingface
+        use_auth_token=os.environ["HUGGINGFACE_API_KEY"],
+    ).to("cuda")
+    context = {
+        "model": model
+    }
+    return context
+
+@app.background_task("/generate_async")
+def generate_image_async(context, request):
+    # do smth
+    return 
+
+
+@app.training("/background")
+def training(context : dict, request : Request) -> None:
+    # do smth
+    return
+
+
+app.serve()
+```
+
+If you are working on **training** method you can run following commands to serve on cloud:
+
+```sh 
+magicpoint bridge example_app.py:training 
+```
+
+Output will shown like that;
+```sh
+[✓] Creating bridge...
+[✓] Deploying magicpoint magic into the bridge...
+[✓] Setup completed 
+    Your bridge URL is ready: https://each.tech/bridge/eliminate-retirement-x1723xn
+```
+

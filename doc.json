@@ -1,0 +1,581 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "",
+        "title": "Flow API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "3.0"
+    },
+    "paths": {
+        "/api/v1/": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get workflows with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "List workflows",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new flow template with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "Create a new flow template",
+                "requestBody": {
+                    "description": "Create Flow Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.CreateFlowReq"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/templates": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List public workflow templates with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "List public workflow templates",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a workflow with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "Get a workflow",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update a workflow with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "Update a workflow",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update Flow Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.UpdateFlowReq"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a workflow with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "Delete a workflow",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}/clone": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Clone a workflow with the input payload",
+                "tags": [
+                    "Flows"
+                ],
+                "summary": "Clone a workflow",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}/executions": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all workflow executions with the input payload",
+                "tags": [
+                    "Execution"
+                ],
+                "summary": "Get all workflow executions",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}/executions/{exec_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a workflow execution with the input payload",
+                "tags": [
+                    "Execution"
+                ],
+                "summary": "Get a workflow execution",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "exec_id",
+                        "in": "path",
+                        "description": "Execution ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}/executions/{exec_id}/cancel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Cancel a workflow execution with the input payload",
+                "tags": [
+                    "Execution"
+                ],
+                "summary": "Cancel a workflow execution",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "exec_id",
+                        "in": "path",
+                        "description": "Execution ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{name}/trigger": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Trigger a workflow with the input payload",
+                "tags": [
+                    "Execution"
+                ],
+                "summary": "Trigger a workflow",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Workflow Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "github_com_1019io_flow-service_transport_request.CreateFlowReq": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "edges_json": {
+                        "type": "string"
+                    },
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Input"
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nodes_json": {
+                        "type": "string"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Output"
+                        }
+                    },
+                    "steps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Step"
+                        }
+                    },
+                    "thumbnail_url": {
+                        "type": "string"
+                    },
+                    "workspace_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "github_com_1019io_flow-service_transport_request.Input": {
+                "type": "object",
+                "properties": {
+                    "default_value": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "github_com_1019io_flow-service_transport_request.Output": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            },
+            "github_com_1019io_flow-service_transport_request.Step": {
+                "type": "object",
+                "properties": {
+                    "data": {},
+                    "id": {
+                        "type": "string"
+                    },
+                    "model_slug": {
+                        "type": "string"
+                    },
+                    "model_version": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "params": {
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "position": {
+                        "type": "object",
+                        "properties": {
+                            "x": {
+                                "type": "integer"
+                            },
+                            "y": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "sourcePosition": {
+                        "type": "string"
+                    },
+                    "targetPosition": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.StepType"
+                    }
+                }
+            },
+            "github_com_1019io_flow-service_transport_request.StepType": {
+                "type": "string",
+                "enum": [
+                    "input",
+                    "1019Model",
+                    "ReplicateModel",
+                    "WebScraper",
+                    "plantnet",
+                    "hairclip",
+                    "OpenAI"
+                ],
+                "x-enum-varnames": [
+                    "StepTypeInput",
+                    "StepType1019",
+                    "StepTypeReplicate",
+                    "StepTypeWebScraper",
+                    "StepTypePlantNet",
+                    "StyleTypeHairClip",
+                    "StepTypeOpenAI"
+                ]
+            },
+            "github_com_1019io_flow-service_transport_request.UpdateFlowReq": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "edges_json": {
+                        "type": "string"
+                    },
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Input"
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nodes_json": {
+                        "type": "string"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Output"
+                        }
+                    },
+                    "steps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/github_com_1019io_flow-service_transport_request.Step"
+                        }
+                    },
+                    "thumbnail_url": {
+                        "type": "string"
+                    },
+                    "workspace_id": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "description": "This is a sample server Petstore server.",
+                "type": "apiKey",
+                "name": "X-API-Key",
+                "in": "header"
+            }
+        }
+    }
+}

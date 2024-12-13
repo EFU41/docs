@@ -1,0 +1,81 @@
+---
+title: Autoscaling and Concurrency
+description: Scale to/from zero with different types of scaling factor.
+---
+
+Autoscaling lets you handle highly variable traffic while minimizing spend on idle compute resources.
+
+## Configuration
+Autoscaling settings are configurable for each deployment of a model. Autoscaling configs are global settings so each version of your model use the same autoscaling config. You can update via ``magicpoint.yaml`` or **console**.
+
+You can set following configs for each type of scaling:
+- Autoscaling Window `window`
+- Scale Down Delay `scale_down_period`
+
+**Autoscaling Window**: Tracks the scaling metric and wait X seconds to upscale your deployment. 
+
+**Scale Down Delay**: If your replica has no request X seconds to downscale your deployment.
+
+```yaml 
+application: 
+    name: Magicpoint Test Application
+    env:
+        - EXAMPLE_ENV_VARIABLE: YOUR_VALUE
+build:
+  gpu: A100
+  gpu_memory: 40Gi
+  cpu: 1
+  python_version: 3.8
+  python_packages:
+    - pillow==8.2.0
+scale:
+    window: 60 # sec, default: 300
+    scale_down_period: 600 # sec, default: 300
+```
+
+### Scale by queue depth
+The basic scaling option is by queue depth. Every application has their own queue and you can configure scaling by queue length.
+And also you can set the threshold in this option. 
+
+```yaml 
+application: 
+    name: Magicpoint Test Application
+    env:
+        - EXAMPLE_ENV_VARIABLE: YOUR_VALUE
+build:
+  gpu: A100
+  gpu_memory: 40Gi
+  cpu: 1
+  python_version: 3.8
+  python_packages:
+    - pillow==8.2.0
+scale:
+    type: QueueDepth
+    threshold: 30
+```
+
+### Scale by latency
+Response time is the most important topic for the end users. We integrated scale by response time to overcome latency issue.
+It's a bit complicated solution because we have three option for response time:
+- Average Response Time
+- p95 Response Time
+- p99 Response Time
+
+You can use latency scaler with following yaml:
+```yaml 
+application: 
+    name: Magicpoint Test Application
+    env:
+        - EXAMPLE_ENV_VARIABLE: YOUR_VALUE
+build:
+  gpu: A100
+  gpu_memory: 40Gi
+  cpu: 1
+  python_version: 3.8
+  python_packages:
+    - pillow==8.2.0
+scale:
+    type: Latency
+    metric: p95 # average | p95 | p99
+    threshold: 100 # in ms
+```

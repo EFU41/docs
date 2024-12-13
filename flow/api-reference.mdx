@@ -1,0 +1,286 @@
+---
+title: "API Reference"
+description: "Each AI Flow API reference documentation."
+---
+
+Each AI Flows provides powerful API to create AI flows programmatically. You can create AI flows, add AI models, and run them with our API.
+
+## API Reference
+
+Each has client SDKs and API for triggering AI flows and managing them.
+
+## Client SDKs
+
+<CardGroup cols={2}>
+  <Card
+    title="Node.js SDK"
+    href="https://www.npmjs.com/package/@eachlabs/aiflow"
+    icon="node-js"
+  >
+    npm i @eachlabs/eachjs
+  </Card>
+  <Card title="Go SDK" href="https://github.com/eachlabs/eachgo" icon="golang">
+    github.com/eachlabs/eachgo
+  </Card>
+  <Card
+    title="Python SDK"
+    href="https://pypi.org/project/eachlabs"
+    icon="python"
+  >
+    Coming soon
+  </Card>
+</CardGroup>
+
+### Initalize SDK
+
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow@latest'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY || 'YOUR_API_KEY'
+});
+```
+
+```python python
+# We will launch our python client SDK soon.
+import requests
+
+# Make sure that you set EACH_API_KEY environment variable 
+# export EACH_API_KEY=<YOUR API KEY>
+
+```
+
+```go golang
+import (
+    each "github.com/eachlabs/eachgo"
+)
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+}
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+
+### Trigger AI Flow
+
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY ||
+    'YOUR_API_KEY'
+});
+
+const triggerID = await each.flow.trigger("flow-id", {
+    parameters: {
+        text: "Hello World" // parameters for the flow
+    }
+});
+
+console.log(triggerID)
+```
+
+```python python
+# We will launch our python client SDK soon.
+import requests
+
+# Make sure that you set EACH_API_KEY environment variable
+
+response = requests.post(
+    "https://flows.eachlabs.ai/api/v1/YOUR_FLOW_ID/trigger",
+    headers={
+        "X-API-KEY": os.getenv("EACH_API_KEY"), 
+    },
+    json={
+        "parameters": {
+            "text": "Hello World"
+        }
+    },
+)
+
+trigger_id = response.json().get("triggerID")
+
+```
+
+```go golang
+import (
+    each "github.com/eachlabs/eachgo"
+)
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+
+    triggerID, err := client.TriggerFlow("flow-id", map[string]interface{}{
+        "text": "Hello World",
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(triggerID)
+
+}
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+
+### Get Executions of a Flow
+
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY ||
+    'YOUR_API_KEY'
+});
+
+const executions = await each.flow.executions("flow-id");
+
+console.log(executions)
+```
+
+```python python
+# We will launch our python client SDK soon.
+import requests
+
+# Make sure that you set EACH_API_KEY environment variable
+
+response = requests.get(
+    "https://flows.eachlabs.ai/api/v1/YOUR_FLOW_ID/executions",
+    headers={
+        "X-API-KEY": os.getenv("EACH_API_KEY"), 
+    },
+)
+
+executions = response.json()
+
+```
+
+```go golang
+import (
+    each "github.com/eachlabs/eachgo"
+)
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+
+    executions, err := client.GetExecutions("flow-id")
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(executions)
+}
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>
+
+### Get Execution Details
+
+<CodeGroup>
+
+```js javascript
+// Please make sure that you run 'npm install @eachlabs/aiflow'
+import Each from '@eachlabs/aiflow';
+
+const each = new Each({
+    auth: process.env.EACH_API_KEY || 'YOUR_API_KEY'
+});
+
+const execution = await each.flow.execution("flow-id", "execution-id");
+
+console.log(execution)
+```
+
+```python python
+# We will launch our python client SDK soon.
+import requests
+
+# Make sure that you set EACH_API_KEY environment variable
+
+response = requests.get(
+    "https://flows.eachlabs.ai/api/v1/YOUR_FLOW_ID/executions/YOUR_EXECUTION_ID",
+    headers={
+        "X-API-KEY": os.getenv("EACH_API_KEY"), 
+    },
+)
+
+execution = response.json()
+
+```
+
+```go golang
+import (
+    each "github.com/eachlabs/eachgo"
+)
+
+func main() {
+    client, err := each.NewClient(each.WithCredential("YOUR_API_KEY"))
+    if err != nil {
+        panic(err)
+    }
+
+    execution, err := client.GetExecution("flow-id", "execution-id")
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(execution)
+}
+
+```
+```swift swift
+// coming soon!
+```
+```kotlin kotlin
+// coming soon!
+```
+```csharp unity
+// coming soon!
+```
+</CodeGroup>

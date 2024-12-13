@@ -1,0 +1,76 @@
+---
+title: Package your model
+description: Package and deploy your models with Magicpoint
+---
+
+Magicpoint is an open source model packaging tool developed by Each. 
+You can use Magicpoint to package and deploy any model to Each, from open-source models on Hugging Face 🤗 and Github to your own proprietary models.
+
+Magicpoint python package has 3 main functionality:
+- Initialize
+- Task
+- Background Task 
+
+<Note>
+If you need more information about Magicpoint, [read the documentation](/magicpoint/intro).
+</Note>
+
+## Initalize your Application
+Initialize runs once when pod is ready. Init process is required for handling the **inference** or **training** applications.
+
+```python
+from magicpoint import Magicpoint, Request, Response
+import transformers 
+app = Magicpoint("MyCoolApp 😎")
+
+
+@app.init
+def init():
+    model = transformers.AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B")
+    context = {
+        model: model
+    }
+
+    return context
+```
+
+## Define your Task
+Task is an endpoint that you can run via HTTP request or Magicpoint Client SDK. 
+There is an difference between task and background task:
+
+**Task:** It's syncronous process that your http request can wait until the end. 
+
+**Background Task:** It's asyncronous process that these type of endpoints returns an background task ID to track details.
+
+
+
+```python
+@app.background_task("/generate_async")
+def generate_image_async(context, request):
+    prompt = request.json["prompt"]
+    torch.backends.cuda.matmul.allow_tf32 = True
+    with torch.inference_mode():
+        with torch.autocast("cuda"):
+            image = context.get('model')(prompt, num_inference_steps=50, guidance_scale=7.5).images[0]
+
+    print(f"Saved Image: {image}")
+    image.save("output.png")
+```
+
+Task:
+
+```python
+@app.task("/generate")
+def generate_image(context, request):
+    prompt = request.json["prompt"]
+    torch.backends.cuda.matmul.allow_tf32 = True
+    with torch.inference_mode():
+        with torch.autocast("cuda"):
+            image = context.get('model')(prompt, num_inference_steps=50, guidance_scale=7.5).images[0]
+
+    print(f"Saved Image: {image}")
+    image.save("output.png")
+    return {
+        'output': image
+    }
+```

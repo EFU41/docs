@@ -1,0 +1,95 @@
+{
+    "$schema": "https://mintlify.com/schema.json",
+    "name": "1019 Documentation",
+    "logo": {
+      "dark": "/logo/dark.svg",
+      "light": "/logo/light.svg"
+    },
+    "favicon": "/favicon.svg",
+    "colors": {
+      "primary": "#3851FF",
+      "light": "#07C983",
+      "dark": "#0D9373",
+      "anchors": {
+        "from": "#0D9373",
+        "to": "#07C983"
+      }
+    },
+    "topbarLinks": [
+      {
+        "name": "Support",
+        "url": "mailto:devs@1019.io"
+      }
+    ],
+    "topbarCtaButton": {
+      "name": "Console",
+      "url": "https://console.1019.io"
+    },
+    "tabs": [
+      {
+        "name": "API Reference",
+        "url": "api-reference"
+      }
+    ],
+    "anchors": [
+      {
+        "name": "Documentation",
+        "icon": "book-open-cover",
+        "url": "https://docs.1019.io"
+      },
+      {
+        "name": "Community",
+        "icon": "discord",
+        "url": "https://mintlify.com/community"
+      },
+      {
+        "name": "Blog",
+        "icon": "newspaper",
+        "url": "https://1019.io/blog"
+      }
+    ],
+    "navigation": [
+      {
+        "group": "Quickstart",
+        "pages": [
+          "welcome"
+        ]
+      },
+      {
+        "group": "Connect",
+        "pages": [
+          "connect/how-to-call-model"
+        ]
+      },
+      {
+        "group": "Essentials",
+        "pages": [
+          "essentials/markdown",
+          "essentials/code",
+          "essentials/images",
+          "essentials/settings",
+          "essentials/navigation",
+          "essentials/reusable-snippets"
+        ]
+      },
+      {
+        "group": "API Documentation",
+        "pages": [
+          "api-reference/introduction"
+        ]
+      },
+      {
+        "group": "Endpoint Examples",
+        "pages": [
+          "api-reference/endpoint/get",
+          "api-reference/endpoint/create",
+          "api-reference/endpoint/delete"
+        ]
+      }
+    ],
+    "footerSocials": {
+      "twitter": "https://twitter.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://www.linkedin.com/company/mintsearch"
+    }
+  }

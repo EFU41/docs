@@ -1,0 +1,47 @@
+---
+title: Deploy your model
+description: Leave it to us. 
+---
+
+It's the easiest part to deploy your function or application to Each servers. You can use Magicpoint CLI tool to deploy your application!
+
+If you have not configured your framework you can visit [Magicpoint Configuration](/magicpoint/configuration) page.
+
+You can follow these steps to deploy your application:
+- Prepare magicpoint.yaml
+- Execute command
+
+## Set your environment
+```yaml magicpoint.yaml
+application: 
+    name: Magicpoint Test Application
+    env:
+        - EXAMPLE_ENV_VARIABLE: YOUR_VALUE
+build:
+  gpu: A100
+  gpu_memory: 40Gi
+  cpu: 1
+  scaling:
+    type: QueueDepth 
+    max_task_per_replica: 3
+    min_replicas: 
+    max_replicas: 2
+  python_version: 3.8
+  python_packages:
+    - pillow==8.2.0
+  cuda: "11.1" 
+```
+
+## Execute just one command
+```sh
+magicpoint deploy app.py
+```
+
+```sh
+[✅] Validating magicpoint.yaml
+[✅] Validation app.py for Magicpoint Test Application
+[✅] Deploying Magicpoint Test Application
+[✅] Deployed on: https://magicpoint-test-application-x2h2gvhax.eachlabs.a
+```
+
+🎉 You are all set! You can track your apps on console!
