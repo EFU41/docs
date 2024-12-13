@@ -1,0 +1,84 @@
+---
+title: "How does Input and Output work in AI Flows?"
+description: "Learn how to configure input fields and connect AI models and integrations to your AI Flows."
+---
+
+Each provides seamless workflow experience for developers and teams. With our workflow UI, without
+code knowledge everyone can connect AI models and data sources.
+
+You can integrate to your CRM or your product. 
+
+## How does Input and Output work in AI Flows?
+
+If you are new to AI Flows, you can learn how to configure input fields and connect AI models and integrations to your AI Flows.
+
+Each AI or ML model has inputs and outputs that are used to process data. You can configure input fields for your AI Flows. Each supports various input types like text, image, voice, and more.
+
+When you add AI models, you can see the inputs of the AI model and when you clicked on the input field, you can see the available outputs from the previous AI models.
+
+<iframe
+  src="https://demo.arcade.software/Sjx0BnsmSpMmmxKs6UTV?embed&show_copy_link=false"
+  title="AI Flow Inputs"
+    className="w-full aspect-video"
+  frameborder="0"
+  loading="lazy"
+  webkitallowfullscreen
+  mozallowfullscreen
+  allowfullscreen
+  allow="clipboard-write"
+></iframe>
+
+### Previous step returns an Object, how can I use it in the next AI model?
+
+Each supports various integrations like CRM, databases, and more. If your integration returns an object, you can use the object keys as inputs for the next AI model.
+
+When you add an integration, you can see the outputs of the integration. If the output is an object, you can use the object keys as inputs for the next AI model.
+
+For example your integrations returns an object like this:
+
+**Step 1**
+```json
+{
+  "name": "John Doe",
+  "email": "john@eachlabs.ai"
+}
+```
+
+You can use the object keys `name` and `email` as inputs for the next AI model.
+
+```json
+{step1.output.name} or {step1.output.email}
+```
+
+## Previous step returns an Array, how can I use it in the next AI model?
+
+If your integration returns an array, you can use the array items as inputs for the next AI model.
+
+When you add an integration, you can see the outputs of the integration. If the output is an array, you can use the array items as inputs for the next AI model.
+
+For example your integrations returns an array like this:
+
+**Step 1**
+```json
+[
+  {
+    "name": "John Doe",
+    "email": "
+  },
+  {
+    "name": "Jane Doe",
+    "email": ""
+  }
+]
+
+```
+
+You can use the array items as inputs for the next AI model.
+
+```json
+{step1.output[0].name} or {step1.output[0].email}
+```
+  
+```json
+{step1.output[1].name} or {step1.output[1].email}
+```
