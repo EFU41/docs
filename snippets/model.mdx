@@ -1,0 +1,11 @@
+export const Model = ({ title, desc, img }) => (
+  <a href="https://console.eachlabs.ai" target="_blank">
+    <div className="flex gap-2 border rounded-lg p-4 my-2 hover:!border-gray-800">
+      <img src={img} alt={title} className="w-16 h-16 rounded" />
+      <div className="pb-2">
+        <strong>{title}</strong>
+        <p className="text-xs">{desc}</p>
+      </div>
+    </div>
+  </a>
+);
